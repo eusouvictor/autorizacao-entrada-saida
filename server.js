@@ -7,11 +7,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const dbDir = path.join(__dirname, 'database');
 const dbPath = path.join(dbDir, 'app.db');
+const frontendDir = path.join(__dirname, 'frontend');
 
 fs.mkdirSync(dbDir, { recursive: true });
 
 app.use(express.json());
-app.use(express.static(__dirname));
+app.use(express.static(frontendDir));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 let db;
@@ -238,7 +239,7 @@ async function startServer() {
   });
 
   app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Formulario.html'));
+    res.sendFile(path.join(frontendDir, 'index.html'));
   });
 
   app.listen(PORT, () => {
